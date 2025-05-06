@@ -1,0 +1,1114 @@
+ka\workflow.html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIT Trichy E-Campus Workflow</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.0/dist/mermaid.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #4f46e5;
+            --primary-light: #6366f1;
+            --primary-dark: #4338ca;
+            --secondary: #64748b;
+            --success: #10b981;
+            --success-light: #34d399;
+            --danger: #ef4444;
+            --danger-light: #f87171;
+            --warning: #f59e0b;
+            --warning-light: #fbbf24;
+            --info: #3b82f6;
+            --light: #f3f4f6;
+            --dark: #1f2937;
+            --bg-light: #f8fafc;
+            --bg-dark: #0f172a;
+            --text-light: #f9fafb;
+            --text-dark: #111827;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--bg-light), #eef2ff);
+            color: var(--text-dark);
+            line-height: 1.6;
+            max-width: 100%;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 20px;
+            perspective: 2000px;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            padding: 25px 0;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            transform: translateZ(0);
+            animation: headerFadeIn 1s ease-out;
+        }
+
+        @keyframes headerFadeIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .logo {
+            height: 90px;
+            margin-right: 25px;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        header h1 {
+            color: var(--primary-dark);
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(67, 56, 202, 0.15);
+            position: relative;
+        }
+
+        header h1:after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            border-radius: 3px;
+        }
+
+        .workflow-title {
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            text-align: center;
+            margin: 40px 0 25px;
+            font-weight: 600;
+            position: relative;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .workflow-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+            border-radius: 3px;
+        }
+
+        .section {
+            margin: 40px 0;
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 25px 0;
+            padding: 20px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .legend:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 15px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s ease;
+        }
+
+        .legend-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin: 35px 0 25px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            position: relative;
+            z-index: 10;
+            perspective: 1000px;
+        }
+
+        .tab {
+            padding: 12px 22px;
+            border-radius: 12px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(229, 231, 235, 0.7);
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s;
+        }
+
+        .tab:hover:before {
+            left: 100%;
+        }
+
+        .tab:hover {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: var(--shadow);
+            transform: translateY(-2px);
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            box-shadow: var(--shadow-md), 0 0 15px rgba(99, 102, 241, 0.5);
+            transform: translateY(-3px) scale(1.05);
+            font-weight: 600;
+        }
+
+        .diagram-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            overflow: auto;
+            margin-top: 25px;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateX(0deg);
+            will-change: transform;
+            position: relative;
+        }
+
+        .diagram-container:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
+            pointer-events: none;
+            border-radius: 16px;
+            z-index: 1;
+        }
+
+        .diagram-container .mermaid {
+            position: relative;
+            z-index: 2;
+        }
+
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+            animation: contentFadeIn 0.6s forwards;
+        }
+
+        @keyframes contentFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .note-box {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .note-box:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .note-box:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1));
+            clip-path: polygon(100% 0, 0% 0, 100% 100%);
+        }
+
+        .interactive-controls {
+            display: flex;
+            gap: 12px;
+            margin: 25px 0;
+            padding: 15px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: var(--shadow);
+        }
+
+        .zoom-btn {
+            padding: 10px 18px;
+            border: none;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .zoom-btn:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s;
+        }
+
+        .zoom-btn:hover:before {
+            left: 100%;
+        }
+
+        .zoom-btn:hover {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .zoom-btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 5px rgba(99, 102, 241, 0.4);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 25px 0;
+            color: var(--secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(99, 102, 241, 0.2);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        /* 3D Node styling for Mermaid */
+        .tab-content.active .mermaid g.node rect,
+        .tab-content.active .mermaid g.node circle,
+        .tab-content.active .mermaid g.node ellipse,
+        .tab-content.active .mermaid g.node polygon,
+        .tab-content.active .mermaid g.node path {
+            filter: drop-shadow(3px 5px 2px rgba(0, 0, 0, 0.2));
+            transition: all 0.3s ease;
+        }
+
+        /* Enhanced 3D background with depth */
+        .page-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 10% 10%, rgba(99, 102, 241, 0.1), transparent 400px),
+                radial-gradient(circle at 90% 90%, rgba(16, 185, 129, 0.1), transparent 300px),
+                radial-gradient(circle at 90% 20%, rgba(245, 158, 11, 0.05), transparent 350px),
+                radial-gradient(circle at 20% 80%, rgba(239, 68, 68, 0.05), transparent 400px);
+            z-index: -1;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(243, 244, 246, 0.8);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--primary-light), var(--primary));
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            header h1:after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .tabs {
+                justify-content: flex-start;
+                overflow-x: auto;
+            }
+
+            .tab {
+                flex: 0 0 auto;
+                white-space: nowrap;
+            }
+
+            .diagram-container {
+                padding: 15px;
+            }
+        }
+        .diagram-container {
+        position: relative;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 30px;
+        border-radius: 16px;
+        box-shadow: var(--shadow-lg);
+        overflow: hidden;
+        margin-top: 25px;
+    }
+    
+    /* Create a floating 3D stage for the diagram */
+    .diagram-3d-stage {
+        transform-style: preserve-3d;
+        perspective: 1200px;
+        position: relative;
+        width: 100%;
+        overflow: visible;
+        min-height: 400px;
+        margin: 20px 0;
+    }
+    
+    .diagram-3d-wrapper {
+        transform-style: preserve-3d;
+        transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        transform: rotateX(20deg) rotateY(10deg) rotateZ(0deg);
+        will-change: transform;
+    }
+    
+    /* Enhanced node styling with 3D effects */
+    .diagram-3d-wrapper .node rect,
+    .diagram-3d-wrapper .node circle,
+    .diagram-3d-wrapper .node polygon,
+    .diagram-3d-wrapper .node path,
+    .diagram-3d-wrapper .node ellipse {
+        filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.12)) 
+                drop-shadow(0 4px 3px rgba(0, 0, 0, 0.1));
+        transition: all 0.4s ease;
+        transform-style: preserve-3d;
+        backface-visibility: hidden;
+        transform: translateZ(5px);
+    }
+    
+    /* Edge styling for depth */
+    .diagram-3d-wrapper .edgePath path {
+        stroke-width: 2px;
+        transition: all 0.3s ease;
+        filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.2));
+    }
+    
+    /* Node hover effect */
+    .diagram-3d-wrapper .node:hover rect,
+    .diagram-3d-wrapper .node:hover circle,
+    .diagram-3d-wrapper .node:hover polygon,
+    .diagram-3d-wrapper .node:hover path,
+    .diagram-3d-wrapper .node:hover ellipse {
+        transform: translateZ(15px) scale(1.05);
+        filter: drop-shadow(0 20px 13px rgba(0, 0, 0, 0.15)) 
+                drop-shadow(0 8px 5px rgba(0, 0, 0, 0.1));
+    }
+    
+    /* 3D Controls styles */
+    .diagram-3d-controls {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin: 15px 0;
+        flex-wrap: wrap;
+    }
+    
+    .control-group {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 12px;
+        padding: 10px 15px;
+        display: flex;
+        align-items: center;
+        box-shadow: var(--shadow);
+        margin-bottom: 10px;
+    }
+    
+    .control-group label {
+        margin-right: 10px;
+        font-weight: 500;
+        color: var(--primary-dark);
+    }
+    
+    .control-group input[type="range"] {
+        -webkit-appearance: none;
+        width: 140px;
+        height: 6px;
+        background: linear-gradient(to right, var(--primary-light), var(--primary));
+        border-radius: 5px;
+        outline: none;
+    }
+    
+    .control-group input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 18px;
+        height: 18px;
+        background: white;
+        border-radius: 50%;
+        border: 2px solid var(--primary);
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    
+    .reset-view-btn {
+        background: linear-gradient(135deg, var(--primary-light), var(--primary));
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 8px 15px;
+        cursor: pointer;
+        font-weight: 500;
+        box-shadow: var(--shadow-sm);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .reset-view-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
+    }
+    
+    /* Animation for nodes */
+    @keyframes float {
+        0% { transform: translateZ(5px); }
+        50% { transform: translateZ(10px); }
+        100% { transform: translateZ(5px); }
+    }
+    
+    .animate-float {
+        animation: float 3s ease-in-out infinite;
+    }
+    
+    /* Grid floor under diagram for 3D effect */
+    .diagram-floor {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        bottom: -20px;
+        left: 0;
+        background-image: 
+            linear-gradient(rgba(79, 70, 229, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(79, 70, 229, 0.1) 1px, transparent 1px);
+        background-size: 20px 20px;
+        transform: rotateX(60deg) translateZ(-100px);
+        transform-style: preserve-3d;
+        z-index: -1;
+        perspective: 1000px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="page-background"></div>
+    <div class="container">
+        <header class="animate__animated animate__fadeInDown">
+            <img src="nittlogo.png" alt="NIT Trichy Logo" class="logo">
+            <h1>NIT Trichy E-Campus Workflow Diagram</h1>
+        </header>
+
+        <div class="note-box animate__animated animate__fadeIn">
+            <p>This workflow diagram represents the complete process flow of the NIT Trichy E-Campus system. It shows
+                the interactions between different user roles and system components.</p>
+        </div>
+
+        <div class="legend animate__animated animate__fadeIn" style="animation-delay: 0.2s">
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #3b82f6, #60a5fa);"></div>
+                <span>User Actions</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #10b981, #34d399);"></div>
+                <span>System Processes</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);"></div>
+                <span>Decision Points</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #ef4444, #f87171);"></div>
+                <span>Document Handling</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #8b5cf6, #a78bfa);"></div>
+                <span>Admin Actions</span>
+            </div>
+        </div>
+
+        <div class="interactive-controls animate__animated animate__fadeIn" style="animation-delay: 0.3s">
+            <button class="zoom-btn" id="zoom-in">Zoom In</button>
+            <button class="zoom-btn" id="zoom-out">Zoom Out</button>
+            <button class="zoom-btn" id="zoom-reset">Reset Zoom</button>
+        </div>
+
+        <div class="tabs animate__animated animate__fadeIn" style="animation-delay: 0.4s">
+            <div class="tab active" data-tab="authentication">Authentication</div>
+            <div class="tab" data-tab="course-management">Course Management</div>
+            <div class="tab" data-tab="application">Application Process</div>
+            <div class="tab" data-tab="verification">Verification Process</div>
+            <div class="tab" data-tab="student">Student Dashboard</div>
+            <div class="tab" data-tab="overview">System Overview</div>
+        </div>
+
+        <div class="tab-content active" id="authentication">
+            <h2 class="workflow-title">User Authentication Workflow</h2>
+            <div class="diagram-container">
+                <div class="mermaid" id="auth-diagram">
+                    graph TD
+                    A[Start] --> B{Existing User?}
+                    B -->|Yes| C[Login]
+                    B -->|No| D[Register]
+                    D --> E[Fill Registration Form]
+                    E --> F[Submit Form]
+                    F --> H[Create User Account]
+                    H --> I[Redirect to Dashboard]
+                    C --> J[Enter Credentials]
+                    J --> K{Valid?}
+                    K -->|No| L[Show Error]
+                    L --> C
+                    K -->|Yes| M[Authentication]
+                    M --> N{Role Check}
+                    N -->|Student| O[Student Dashboard]
+                    N -->|Admin| P[Admin Dashboard]
+                    N -->|Content Admin| Q[Content Admin Dashboard]
+                    N -->|Faculty| R[Faculty Dashboard]
+                    N -->|Verification Admin| S[Verification Admin Dashboard]
+                    N -->|Verification Officer| T[Verification Officer Dashboard]
+                    classDef primary fill:#3b82f6,stroke:#1d4ed8,color:white
+                    classDef success fill:#10b981,stroke:#059669,color:white
+                    classDef warning fill:#f59e0b,stroke:#d97706,color:white
+                    classDef admin fill:#8b5cf6,stroke:#7c3aed,color:white
+                    class A,B,C,D,E,F,J,K,L primary
+                    class H,M success
+                    class N warning
+                    class O,P,Q,R,S,T admin
+                </div>
+            </div>
+        </div>
+
+        <!-- Other tab content sections remain the same -->
+        <div class="tab-content" id="course-management">
+            <h2 class="workflow-title">Course Management Workflow</h2>
+            <div class="diagram-container">
+                <div class="mermaid" id="course-diagram">
+                    graph TD
+                    A[Admin] -->|Add New Course| B[Fill Course Details]
+                    B --> C[Save Course]
+                    C --> D[Assign Content Admin]
+                    D --> E[Course Created]
+                    E --> F[Content Admin Login]
+                    F --> G[View Assigned Courses]
+                    G --> H[Select Course]
+                    H --> I[Add Program Description]
+                    I --> J[Upload Images]
+                    I --> K[Add Vision & Mission]
+                    I --> L[Add Syllabus]
+                    I --> M[Add PEO & PO]
+                    I --> N[Select Program Type]
+                    J --> O[Save Course Description]
+                    K --> O
+                    L --> O
+                    M --> O
+                    N --> O
+                    O --> P[Configure Form Structure]
+                    P -->|Set Academic Fields| Q[Choose Required Fields]
+                    P -->|Set Document Requirements| R[Choose Required Documents]
+                    Q --> S[Save Form Structure]
+                    R --> S
+                    S --> T[Course Ready for Applications]
+
+                    classDef admin fill:#8b5cf6,stroke:#7c3aed,color:white
+                    classDef primary fill:#3b82f6,stroke:#1d4ed8,color:white
+                    classDef success fill:#10b981,stroke:#059669,color:white
+                    classDef danger fill:#ef4444,stroke:#dc2626,color:white
+                    class A,D,F,G admin
+                    class B,C,H,I,J,K,L,M,N,O primary
+                    class P,Q,R,S success
+                    class T danger
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="application">
+            <!-- Same content as before -->
+            <h2 class="workflow-title">Application Process Workflow</h2>
+            <div class="diagram-container">
+                <div class="mermaid" id="application-diagram">
+                    graph TD
+                    A[Student Login] --> B[Browse Courses]
+                    B --> C[Select Course]
+                    C --> D[View Course Details]
+                    D --> E[Click Apply]
+                    E --> F[Fill Personal Details]
+                    F -->|Next| G[Complete Academic Details]
+                    G -->|Next| H[Upload Required Documents]
+                    H -->|Next| I[Review Application]
+                    I -->|Submit| J[Confirm Submission]
+                    J --> K[Application Submitted]
+                    K --> L[Awaiting Verification]
+
+                    H --> H1[Select Document Type]
+                    H1 --> H2[Choose File]
+                    H2 --> H3[Upload Document]
+                    H3 --> H4[Add More Documents]
+                    H4 -->|If Required| H1
+
+                    classDef primary fill:#3b82f6,stroke:#1d4ed8,color:white
+                    classDef success fill:#10b981,stroke:#059669,color:white
+                    classDef danger fill:#ef4444,stroke:#dc2626,color:white
+                    classDef warning fill:#f59e0b,stroke:#d97706,color:white
+                    class A,B,C,D,E,F,G,I,J primary
+                    class K,L success
+                    class H,H1,H2,H3,H4 danger
+                </div>
+            </div>
+        </div>
+
+        <!-- Other tab contents remain the same -->
+        <div class="tab-content" id="verification">
+            <!-- Content remains the same -->
+            <h2 class="workflow-title">Verification Process Workflow</h2>
+            <div class="diagram-container">
+                <div class="mermaid" id="verification-diagram">
+                    graph TD
+                    A[Application Submitted] --> B[Verification Admin Dashboard]
+                    B --> C[Review Applications]
+                    C --> D[Assign to Verification Officer]
+                    D --> E[Verification Officer Login]
+                    E --> F[Review Assigned Applications]
+                    F --> G[Verify Documents]
+                    G --> H{All Docs Valid?}
+                    H -->|Yes| I[Mark as Verified]
+                    H -->|No| J[Mark as Rejected]
+                    J --> K[Add Rejection Reason]
+                    I --> L[Send to Verification Admin]
+                    K --> L
+                    L --> M[Final Review]
+                    M --> N{Approve?}
+                    N -->|Yes| O[Application Approved]
+                    N -->|No| P[Application Rejected]
+                    O --> Q[Student Notified]
+                    P --> Q
+
+                    classDef primary fill:#3b82f6,stroke:#1d4ed8,color:white
+                    classDef success fill:#10b981,stroke:#059669,color:white
+                    classDef danger fill:#ef4444,stroke:#dc2626,color:white
+                    classDef warning fill:#f59e0b,stroke:#d97706,color:white
+                    classDef admin fill:#8b5cf6,stroke:#7c3aed,color:white
+                    class A,Q primary
+                    class I,O success
+                    class J,K,P danger
+                    class B,C,D,E,F,G,L,M admin
+                    class H,N warning
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="student">
+            <!-- Content remains the same -->
+            <h2 class="workflow-title">Student Dashboard Workflow</h2>
+            <div class="diagram-container">
+                <div class="mermaid" id="student-diagram">
+                    graph TD
+                    A[Student Login] --> B[Student Dashboard]
+                    B --> C[View Profile]
+                    B --> D[View Courses]
+                    B --> E[View Assignments]
+                    B --> F[Check Schedule]
+                    B --> G[View Announcements]
+
+                    C --> C1[Update Profile Picture]
+                    C --> C2[View Personal Info]
+
+                    D --> D1[Browse Available Courses]
+                    D1 --> D2[Apply for Course]
+                    D --> D3[View Enrolled Courses]
+                    D3 --> D4[Access Course Materials]
+
+                    E --> E1[View Pending Assignments]
+                    E --> E2[Submit Assignment]
+                    E --> E3[View Graded Assignments]
+
+                    F --> F1[Weekly Schedule]
+                    F --> F2[Exam Schedule]
+
+                    G --> G1[Campus Announcements]
+                    G --> G2[Course Announcements]
+
+                    classDef primary fill:#3b82f6,stroke:#1d4ed8,color:white
+                    classDef success fill:#10b981,stroke:#059669,color:white
+                    classDef warning fill:#f59e0b,stroke:#d97706,color:white
+                    class A,B,C,D,E,F,G primary
+                    class C1,C2,D1,D3,F1,F2,G1,G2 success
+                    class D2,D4,E1,E2,E3 warning
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="overview">
+            <!-- Content remains the same -->
+            <h2 class="workflow-title">System Overview Workflow</h2>
+            <div class="diagram-container">
+                <div class="mermaid" id="overview-diagram">
+                    graph TD
+                    A[User Access] --> B[Authentication System]
+                    B --> C{User Role Check}
+
+                    C -->|Admin| D[Admin Dashboard]
+                    C -->|Content Admin| E[Content Admin Dashboard]
+                    C -->|Student| F[Student Dashboard]
+                    C -->|Faculty| G[Faculty Dashboard]
+                    C -->|Verification Admin| H[Verification Admin Dashboard]
+                    C -->|Verification Officer| I[Verification Officer Dashboard]
+
+                    D --> D1[Manage Users]
+                    D --> D2[Manage Courses]
+                    D --> D3[View Statistics]
+
+                    E --> E1[Manage Assigned Courses]
+                    E --> E2[Add Course Details]
+                    E --> E3[Configure Application Forms]
+
+                    F --> F1[View Courses]
+                    F --> F2[Submit Applications]
+                    F --> F3[Check Application Status]
+                    F --> F4[Access Learning Materials]
+
+                    G --> G1[Manage Students]
+                    G --> G2[Update Grades]
+                    G --> G3[Assign Tasks]
+
+                    H --> H1[Review Applications]
+                    H --> H2[Assign to Officers]
+                    H --> H3[Final Approval]
+
+                    I --> I1[Verify Documents]
+                    I --> I2[Process Applications]
+
+                    classDef primary fill:#3b82f6,stroke:#1d4ed8,color:white
+                    classDef success fill:#10b981,stroke:#059669,color:white
+                    classDef admin fill:#8b5cf6,stroke:#7c3aed,color:white
+                    classDef warning fill:#f59e0b,stroke:#d97706,color:white
+                    classDef danger fill:#ef4444,stroke:#dc2626,color:white
+
+                    class A,B primary
+                    class C warning
+                    class D,E,G,H,I admin
+                    class F success
+                    class D1,D2,D3,E1,E2,E3,F1,F2,F3,F4,G1,G2,G3,H1,H2,H3,I1,I2 primary
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="animate__animated animate__fadeIn" style="animation-delay: 0.5s">
+        <p>&copy; 2025 NIT Trichy E-Campus. All rights reserved.</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Store original diagram content and create clean IDs
+            const diagramData = {};
+            document.querySelectorAll('.mermaid').forEach((node, index) => {
+                const tabId = node.closest('.tab-content').id;
+                const uniqueId = `mermaid-diagram-${tabId}-${index}`;
+                diagramData[uniqueId] = node.innerHTML.trim();
+                node.id = uniqueId;
+                // Clear the node so Mermaid doesn't auto-process it
+                node.innerHTML = '';
+            });
+
+            // Configure Mermaid with enhanced styling
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'default',
+                flowchart: {
+                    curve: 'basis',
+                    useMaxWidth: false,
+                    htmlLabels: true,
+                    diagramPadding: 8,
+                },
+                themeVariables: {
+                    primaryColor: '#4f46e5',
+                    primaryTextColor: '#ffffff',
+                    primaryBorderColor: '#4338ca',
+                    lineColor: '#64748b',
+                    secondaryColor: '#10b981',
+                    tertiaryColor: '#f8fafc'
+                }
+            });
+
+            // 3D hover effect for diagrams
+            function add3DHoverEffects() {
+                document.querySelectorAll('.diagram-container').forEach(container => {
+                    container.addEventListener('mousemove', function (e) {
+                        const rect = container.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+
+                        const moveX = (x - centerX) / 30;
+                        const moveY = (y - centerY) / 30;
+
+                        this.style.transform = `perspective(1000px) rotateX(${-moveY}deg) rotateY(${moveX}deg)`;
+                    });
+
+                    container.addEventListener('mouseleave', function () {
+                        this.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+                    });
+                });
+            }
+
+            // Function to render a specific tab's diagrams
+            function renderTabDiagrams(tabId) {
+                const container = document.getElementById(tabId);
+                const diagrams = container.querySelectorAll('.mermaid');
+
+                // For each diagram in this tab
+                diagrams.forEach(diagram => {
+                    const diagramId = diagram.id;
+
+                    // Create a new container to replace the old one
+                    const newContainer = document.createElement('div');
+                    newContainer.className = 'mermaid';
+                    newContainer.id = diagramId;
+                    newContainer.innerHTML = diagramData[diagramId];
+
+                    // Replace the old diagram with the new one
+                    diagram.parentNode.replaceChild(newContainer, diagram);
+                });
+
+                // Now render all diagrams in this tab
+                try {
+                    mermaid.init(undefined, container.querySelectorAll('.mermaid'));
+                    setTimeout(add3DHoverEffects, 300); // Add hover effects after diagram renders
+                } catch (error) {
+                    console.error('Mermaid rendering error:', error);
+                }
+            }
+
+            // Render the initial active tab
+            const activeTabId = document.querySelector('.tab-content.active').id;
+            renderTabDiagrams(activeTabId);
+
+            // Tab switching logic with improved transitions
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Don't do anything if the tab is already active
+                    if (tab.classList.contains('active')) {
+                        return;
+                    }
+
+                    // Deactivate all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => {
+                        c.classList.remove('active');
+                        c.style.opacity = '0';
+                        c.style.transform = 'translateY(20px)';
+                    });
+
+                    // Activate the clicked tab and its content
+                    tab.classList.add('active');
+                    const tabId = tab.dataset.tab;
+                    const content = document.getElementById(tabId);
+                    content.classList.add('active');
+
+                    // Render the diagrams for this tab
+                    renderTabDiagrams(tabId);
+                });
+            });
+
+            // Enhanced zoom functionality
+            let scale = 1;
+            const containers = document.querySelectorAll('.diagram-container');
+            document.getElementById('zoom-in').addEventListener('click', () => {
+                scale += 0.1;
+                containers.forEach(c => {
+                    c.style.transform = `scale(${scale})`;
+                    c.style.transformOrigin = 'top left';
+                    // Reset the 3D rotation when zooming
+                    c.addEventListener('mouseleave', function () {
+                        this.style.transform = `scale(${scale})`;
+                    });
+                });
+            });
+
+            document.getElementById('zoom-out').addEventListener('click', () => {
+                if (scale > 0.5) {
+                    scale -= 0.1;
+                    containers.forEach(c => {
+                        c.style.transform = `scale(${scale})`;
+                        c.style.transformOrigin = 'top left';
+                        // Reset the 3D rotation when zooming
+                        c.addEventListener('mouseleave', function () {
+                            this.style.transform = `scale(${scale})`;
+                        });
+                    });
+                }
+            });
+
+            document.getElementById('zoom-reset').addEventListener('click', () => {
+                scale = 1;
+                containers.forEach(c => {
+                    c.style.transform = `scale(${scale})`;
+                    c.style.transformOrigin = 'top left';
+                    // Re-enable 3D effects after reset
+                    setTimeout(add3DHoverEffects, 300);
+                });
+            });
+
+            // Apply initial 3D effects
+            setTimeout(add3DHoverEffects, 500);
+        });
+    </script>
+</body>
+
+</html>
