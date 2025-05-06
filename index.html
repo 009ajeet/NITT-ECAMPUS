@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIT Trichy E-Campus Workflow</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.0/dist/mermaid.min.js"></script>
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --secondary: #6b7280;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --light: #f3f4f6;
+            --dark: #1f2937;
+            --bg-light: #ffffff;
+            --bg-dark: #111827;
+            --text-light: #f9fafb;
+            --text-dark: #111827;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .logo {
+            height: 80px;
+            margin-right: 20px;
+        }
+
+        header h1 {
+            color: var(--primary-dark);
+            font-size: 2rem;
+        }
+
+        .workflow-title {
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            text-align: center;
+            margin: 40px 0 20px;
+        }
+
+        .section {
+            margin: 30px 0;
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            background-color: #f9fafb;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            border-radius: 4px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin: 30px 0 15px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            background-color: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-bottom: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .tab:hover {
+            background-color: #e5e7eb;
+        }
+
+        .tab.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .diagram-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            overflow: auto;
+            margin-top: 15px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .note-box {
+            background-color: #f8fafc;
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .interactive-controls {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .zoom-btn {
+            padding: 8px 15px;
+            border: none;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .zoom-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px 0;
+            color: var(--secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid #e5e7eb;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <img src="nittlogo.png" alt="NIT Trichy Logo" class="logo">
+            <h1>NIT Trichy E-Campus Workflow Diagram</h1>
+        </header>
+
+        <div class="note-box">
+            <p>This workflow diagram represents the complete process flow of the NIT Trichy E-Campus system. It shows
+                the interactions between different user roles and system components.</p>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #3b82f6;"></div>
+                <span>User Actions</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #10b981;"></div>
+                <span>System Processes</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #f59e0b;"></div>
+                <span>Decision Points</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #ef4444;"></div>
+                <span>Document Handling</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #8b5cf6;"></div>
+                <span>Admin Actions</span>
+            </div>
+        </div>
+
+        <div class="interactive-controls">
+            <button class="zoom-btn" id="zoom-in">Zoom In</button>
+            <button class="zoom-btn" id="zoom-out">Zoom Out</button>
+            <button class="zoom-btn" id="zoom-reset">Reset Zoom</button>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" data-tab="authentication">Authentication</div>
+            <div class="tab" data-tab="course-management">Course Management</div>
+            <div class="tab" data-tab="application">Application Process</div>
+            <div class="tab" data-tab="verification">Verification Process</div>
+            <div class="tab" data-tab="student">Student Dashboard</div>
+            <div class="tab" data-tab="overview">System Overview</div>
+        </div>
+
+        <div class="tab-content active" id="authentication">
+            <h2 class="workflow-title">User Authentication Workflow</h2>
+            <div class="diagram-container">
+                <div class="mermaid" id="auth-diagram">
+                    graph TD
+                    A[Start] --> B{Existing User?}
+                    B -->|Yes| C[Login]
+                    B -->|No| D[Register]
+                    D --> E[Fill Registration Form]
+                    E --> F[Submit Form]
+                    F --> H[Create User Account]
+                    H --> I[Redirect to Dashboard]
+                    C --> J[Enter Credentials]
+                    J --> K{Valid?}
+                    K -->|No| L[Show Error]
+                    L --> C
+                    K -->|Yes| M[Authentication]
+                    M --> N{Role Check}
+                    N -->|Student| O[Student Dashboard]
+                    N -->|Admin| P[Admin Dashboard]
+                    N -->|Content Admin| Q[Content Admin Dashboard]
+                    N -->|Faculty| R[Faculty Dashboard]
+                    N -->|Verification Admin| S[Verification Admin Dashboard]
+                    N -->|Verification Officer| T[Verification Officer Dashboard]
+                    classDef primary fill:#3b82f6,stroke:#1d4ed8,color:white
+                    classDef success fill:#10b981,stroke:#059669,color:white
+                    classDef warning fill:#f59e0b,stroke:#d97706,color:white
+                    classDef admin fill:#8b5cf6,stroke:#7c3aed,color:white
+                    class A,B,C,D,E,F,J,K,L primary
+                    class H,M success
+                    class N warning
+                    class O,P,Q,R,S,T admin
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="course-management">
+            <h2 class="workflow-title">Course Management Workflow</h2>
+            <div class="diagram-container">
+                <div class="mermaid" id="course-diagram">
+                    graph TD
+                    A[Admin] -->|Add New Course| B[Fill Course Details]
+                    B --> C[Save Course]
+                    C --> D[Assign Content Admin]
+                    D --> E[Course Created]
+                    E --> F[Content Admin Login]
+                    F --> G[View Assigned Courses]
+                    G --> H[Select Course]
+                    H --> I[Add Program Description]
+                    I --> J[Upload Images]
+                    I --> K[Add Vision & Mission]
+                    I --> L[Add Syllabus]
+                    I --> M[Add PEO & PO]
+                    I --> N[Select Program Type]
+                    J --> O[Save Course Description]
+                    K --> O
+                    L --> O
+                    M --> O
+                    N --> O
+                    O --> P[Configure Form Structure]
+                    P -->|Set Academic Fields| Q[Choose Required Fields]
+                    P -->|Set Document Requirements| R[Choose Required Documents]
+                    Q --> S[Save Form Structure]
+                    R --> S
+                    S --> T[Course Ready for Applications]
+
+                    classDef admin fill:#8b5cf6,stroke:#7c3aed,color:white
+                    classDef primary fill:#3b82f6,stroke:#1d4ed8,color:white
+                    classDef success fill:#10b981,stroke:#059669,color:white
+                    classDef danger fill:#ef4444,stroke:#dc2626,color:white
+                    class A,D,F,G admin
+                    class B,C,H,I,J,K,L,M,N,O primary
+                    class P,Q,R,S success
+                    class T danger
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="application">
+            <h2 class="workflow-title">Application Process Workflow</h2>
+            <div class="diagram-container">
+                <div class="mermaid" id="application-diagram">
+                    graph TD
+                    A[Student Login] --> B[Browse Courses]
+                    B --> C[Select Course]
+                    C --> D[View Course Details]
+                    D --> E[Click Apply]
+                    E --> F[Fill Personal Details]
+                    F -->|Next| G[Complete Academic Details]
+                    G -->|Next| H[Upload Required Documents]
+                    H -->|Next| I[Review Application]
+                    I -->|Submit| J[Confirm Submission]
+                    J --> K[Application Submitted]
+                    K --> L[Awaiting Verification]
+
+                    H --> H1[Select Document Type]
+                    H1 --> H2[Choose File]
+                    H2 --> H3[Upload Document]
+                    H3 --> H4[Add More Documents]
+                    H4 -->|If Required| H1
+
+                    classDef primary fill:#3b82f6,stroke:#1d4ed8,color:white
+                    classDef success fill:#10b981,stroke:#059669,color:white
+                    classDef danger fill:#ef4444,stroke:#dc2626,color:white
+                    classDef warning fill:#f59e0b,stroke:#d97706,color:white
+                    class A,B,C,D,E,F,G,I,J primary
+                    class K,L success
+                    class H,H1,H2,H3,H4 danger
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="verification">
+            <h2 class="workflow-title">Verification Process Workflow</h2>
+            <div class="diagram-container">
+                <div class="mermaid" id="verification-diagram">
+                    graph TD
+                    A[Application Submitted] --> B[Verification Admin Dashboard]
+                    B --> C[Review Applications]
+                    C --> D[Assign to Verification Officer]
+                    D --> E[Verification Officer Login]
+                    E --> F[Review Assigned Applications]
+                    F --> G[Verify Documents]
+                    G --> H{All Docs Valid?}
+                    H -->|Yes| I[Mark as Verified]
+                    H -->|No| J[Mark as Rejected]
+                    J --> K[Add Rejection Reason]
+                    I --> L[Send to Verification Admin]
+                    K --> L
+                    L --> M[Final Review]
+                    M --> N{Approve?}
+                    N -->|Yes| O[Application Approved]
+                    N -->|No| P[Application Rejected]
+                    O --> Q[Student Notified]
+                    P --> Q
+
+                    classDef primary fill:#3b82f6,stroke:#1d4ed8,color:white
+                    classDef success fill:#10b981,stroke:#059669,color:white
+                    classDef danger fill:#ef4444,stroke:#dc2626,color:white
+                    classDef warning fill:#f59e0b,stroke:#d97706,color:white
+                    classDef admin fill:#8b5cf6,stroke:#7c3aed,color:white
+                    class A,Q primary
+                    class I,O success
+                    class J,K,P danger
+                    class B,C,D,E,F,G,L,M admin
+                    class H,N warning
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="student">
+            <h2 class="workflow-title">Student Dashboard Workflow</h2>
+            <div class="diagram-container">
+                <div class="mermaid" id="student-diagram">
+                    graph TD
+                    A[Student Login] --> B[Student Dashboard]
+                    B --> C[View Profile]
+                    B --> D[View Courses]
+                    B --> E[View Assignments]
+                    B --> F[Check Schedule]
+                    B --> G[View Announcements]
+
+                    C --> C1[Update Profile Picture]
+                    C --> C2[View Personal Info]
+
+                    D --> D1[Browse Available Courses]
+                    D1 --> D2[Apply for Course]
+                    D --> D3[View Enrolled Courses]
+                    D3 --> D4[Access Course Materials]
+
+                    E --> E1[View Pending Assignments]
+                    E --> E2[Submit Assignment]
+                    E --> E3[View Graded Assignments]
+
+                    F --> F1[Weekly Schedule]
+                    F --> F2[Exam Schedule]
+
+                    G --> G1[Campus Announcements]
+                    G --> G2[Course Announcements]
+
+                    classDef primary fill:#3b82f6,stroke:#1d4ed8,color:white
+                    classDef success fill:#10b981,stroke:#059669,color:white
+                    classDef warning fill:#f59e0b,stroke:#d97706,color:white
+                    class A,B,C,D,E,F,G primary
+                    class C1,C2,D1,D3,F1,F2,G1,G2 success
+                    class D2,D4,E1,E2,E3 warning
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="overview">
+            <h2 class="workflow-title">System Overview Workflow</h2>
+            <div class="diagram-container">
+                <div class="mermaid" id="overview-diagram">
+                    graph TD
+                    A[User Access] --> B[Authentication System]
+                    B --> C{User Role Check}
+
+                    C -->|Admin| D[Admin Dashboard]
+                    C -->|Content Admin| E[Content Admin Dashboard]
+                    C -->|Student| F[Student Dashboard]
+                    C -->|Faculty| G[Faculty Dashboard]
+                    C -->|Verification Admin| H[Verification Admin Dashboard]
+                    C -->|Verification Officer| I[Verification Officer Dashboard]
+
+                    D --> D1[Manage Users]
+                    D --> D2[Manage Courses]
+                    D --> D3[View Statistics]
+
+                    E --> E1[Manage Assigned Courses]
+                    E --> E2[Add Course Details]
+                    E --> E3[Configure Application Forms]
+
+                    F --> F1[View Courses]
+                    F --> F2[Submit Applications]
+                    F --> F3[Check Application Status]
+                    F --> F4[Access Learning Materials]
+
+                    G --> G1[Manage Students]
+                    G --> G2[Update Grades]
+                    G --> G3[Assign Tasks]
+
+                    H --> H1[Review Applications]
+                    H --> H2[Assign to Officers]
+                    H --> H3[Final Approval]
+
+                    I --> I1[Verify Documents]
+                    I --> I2[Process Applications]
+
+                    classDef primary fill:#3b82f6,stroke:#1d4ed8,color:white
+                    classDef success fill:#10b981,stroke:#059669,color:white
+                    classDef admin fill:#8b5cf6,stroke:#7c3aed,color:white
+                    classDef warning fill:#f59e0b,stroke:#d97706,color:white
+                    classDef danger fill:#ef4444,stroke:#dc2626,color:white
+
+                    class A,B primary
+                    class C warning
+                    class D,E,G,H,I admin
+                    class F success
+                    class D1,D2,D3,E1,E2,E3,F1,F2,F3,F4,G1,G2,G3,H1,H2,H3,I1,I2 primary
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 NIT Trichy E-Campus. All rights reserved.</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Store original diagram content and create clean IDs
+            const diagramData = {};
+            document.querySelectorAll('.mermaid').forEach((node, index) => {
+                const tabId = node.closest('.tab-content').id;
+                const uniqueId = `mermaid-diagram-${tabId}-${index}`;
+                diagramData[uniqueId] = node.innerHTML.trim();
+                node.id = uniqueId;
+                // Clear the node so Mermaid doesn't auto-process it
+                node.innerHTML = '';
+            });
+
+            // Initialize Mermaid with proper settings
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'default',
+                flowchart: {
+                    curve: 'basis',
+                    useMaxWidth: false
+                }
+            });
+
+            // Function to render a specific tab's diagrams
+            function renderTabDiagrams(tabId) {
+                const container = document.getElementById(tabId);
+                const diagrams = container.querySelectorAll('.mermaid');
+
+                // For each diagram in this tab
+                diagrams.forEach(diagram => {
+                    const diagramId = diagram.id;
+
+                    // Create a new container to replace the old one
+                    const newContainer = document.createElement('div');
+                    newContainer.className = 'mermaid';
+                    newContainer.id = diagramId;
+                    newContainer.innerHTML = diagramData[diagramId];
+
+                    // Replace the old diagram with the new one
+                    diagram.parentNode.replaceChild(newContainer, diagram);
+                });
+
+                // Now render all diagrams in this tab
+                try {
+                    mermaid.init(undefined, container.querySelectorAll('.mermaid'));
+                } catch (error) {
+                    console.error('Mermaid rendering error:', error);
+                }
+            }
+
+            // Render the initial active tab
+            const activeTabId = document.querySelector('.tab-content.active').id;
+            renderTabDiagrams(activeTabId);
+
+            // Tab switching logic
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Don't do anything if the tab is already active
+                    if (tab.classList.contains('active')) {
+                        return;
+                    }
+
+                    // Deactivate all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+                    // Activate the clicked tab and its content
+                    tab.classList.add('active');
+                    const tabId = tab.dataset.tab;
+                    const content = document.getElementById(tabId);
+                    content.classList.add('active');
+
+                    // Render the diagrams for this tab
+                    renderTabDiagrams(tabId);
+                });
+            });
+
+            // Zoom functionality
+            let scale = 1;
+            const containers = document.querySelectorAll('.diagram-container');
+            document.getElementById('zoom-in').addEventListener('click', () => {
+                scale += 0.1;
+                containers.forEach(c => {
+                    c.style.transform = `scale(${scale})`;
+                    c.style.transformOrigin = 'top left';
+                });
+            });
+
+            document.getElementById('zoom-out').addEventListener('click', () => {
+                if (scale > 0.5) {
+                    scale -= 0.1;
+                    containers.forEach(c => {
+                        c.style.transform = `scale(${scale})`;
+                        c.style.transformOrigin = 'top left';
+                    });
+                }
+            });
+
+            document.getElementById('zoom-reset').addEventListener('click', () => {
+                scale = 1;
+                containers.forEach(c => {
+                    c.style.transform = `scale(${scale})`;
+                    c.style.transformOrigin = 'top left';
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
