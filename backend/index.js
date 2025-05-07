@@ -4,8 +4,19 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
+const path = require('path');
+const listEndpoints = require("express-list-endpoints"); // Optional
 require("dotenv").config();
+
+// Import the centralized configuration
+const config = require('./config');
+
+// Import models
 const UserModel = require("./models/User");
+const ApplicationForm = require("./models/ApplicationForm");
+const FormModel = require("./models/Form");
+
+// Import routes
 const courseRoutes = require("./routes/courseRoutes");
 const formRoutes = require("./routes/formRoutes");
 const noticeRoutes = require("./routes/noticeRoutes");
@@ -13,46 +24,55 @@ const facultyRoutes = require("./routes/faculty");
 const studentRoutes = require("./routes/student");
 const verificationOfficerRoutes = require("./routes/VerificationOfficerRoutes");
 const verificationAdminRoutes = require("./routes/VerificationAdminRoutes");
-const ApplicationForm = require("./models/ApplicationForm");
-const FormModel = require("./models/Form");
+
+// Import middlewares
 const { auth, authorize } = require("./middleware/auth");
-const listEndpoints = require("express-list-endpoints"); // Optional
-const path = require('path');
+
+// Initialize express app
 const app = express();
 
+// Configure middleware
 app.use(express.json({ limit: "50mb" }));
+
+// Configure CORS for both development and production
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    // Use config for origin to support both development and production
+    origin: config.clientURL || "http://localhost:5173",
     methods: "GET,POST,PUT,DELETE,OPTIONS",
     credentials: true,
   })
 );
 app.options("*", cors());
 
+// Request logging middleware
 app.use((req, res, next) => {
   console.log(`Request: ${req.method} ${req.url}`);
   res.on("finish", () => {
-    console.log(`Response Headers for ${req.url}:`, res.getHeaders());
+    console.log(`Response Status: ${res.statusCode} for ${req.url}`);
   });
   next();
 });
 
+// Configure nodemailer
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
+    user: config.email.user,
+    pass: config.email.pass,
   },
 });
 
-const MONGO_URI = process.env.MONGO_URI;
-mongoose.connect(MONGO_URI, {
+// Connect to MongoDB
+mongoose.connect(config.mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-});
+})
+  .then(() => console.log('MongoDB Connected'))
+  .catch(err => console.log('MongoDB Connection Error:', err));
 
-const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
+// Use JWT secret from config
+const JWT_SECRET = config.jwtSecret;
 
 // Mount routes
 app.use("/api/courses", courseRoutes);
@@ -60,17 +80,18 @@ app.use("/api/forms", formRoutes);
 app.use("/api/notices", noticeRoutes);
 app.use("/api/faculty", facultyRoutes);
 app.use("/api/student", studentRoutes);
-app.use("/api/applications", require("./routes/applicationRoutes")); // Correct mount
+app.use("/api/applications", require("./routes/applicationRoutes"));
 app.use("/api/verification-admin", verificationAdminRoutes);
 app.use("/api/verification-officer", verificationOfficerRoutes);
+
 // Serve static files from the uploads directory
 app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')));
-
 
 // Log registered routes (optional)
 console.log("Registered Routes:");
 console.log(listEndpoints(app));
 
+// Authorization middlewares
 const authorizeAdmin = (req, res, next) => {
   console.log("User role:", req.user.role);
   if (req.user.role !== "admin") {
@@ -86,6 +107,7 @@ const authorizeContentAdmin = (req, res, next) => {
   next();
 };
 
+// Authentication routes
 app.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
   const userRole = "student"; //keep it student by default
@@ -111,17 +133,17 @@ app.post("/register", async (req, res) => {
     );
 
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: config.email.user,
       to: email,
-      subject: "Welcome to Our Platform!",
+      subject: "Welcome to NITT E-Campus!",
       html: `
         <h2>Hi ${name},</h2>
-        <p>Thank you for registering on our platform! 🎉</p>
+        <p>Thank you for registering on NITT E-Campus! 🎉</p>
         <p>You can now log in using your registered email.</p>
         <p><strong>Happy Learning! 🚀</strong></p>
         <br>
         <p>Best Regards,</p>
-        <p><strong>Your Team</strong></p>
+        <p><strong>NITT E-Campus Team</strong></p>
       `,
     };
 
@@ -144,7 +166,6 @@ app.post("/register", async (req, res) => {
     res.status(500).json({ error: "Registration failed" });
   }
 });
-
 
 app.post("/api/users/create", auth, authorizeAdmin, async (req, res) => {
   const { name, email, password, role } = req.body;
@@ -173,15 +194,15 @@ app.post("/api/users/create", auth, authorizeAdmin, async (req, res) => {
     });
 
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: config.email.user,
       to: email,
-      subject: "Welcome to Our Platform!",
+      subject: "Welcome to NITT E-Campus!",
       html: `
         <h2>Hi ${name},</h2>
-        <p>You have been registered as a ${role} on our platform! 🎉</p>
+        <p>You have been registered as a ${role} on NITT E-Campus! 🎉</p>
         <p>Please log in using your email and the provided password.</p>
         <p><strong>Best Regards,</strong></p>
-        <p><strong>Your Team</strong></p>
+        <p><strong>NITT E-Campus Team</strong></p>
       `,
     };
 
@@ -199,7 +220,6 @@ app.post("/api/users/create", auth, authorizeAdmin, async (req, res) => {
     res.status(500).json({ message: "Failed to create user", error: error.message });
   }
 });
-
 
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
@@ -375,6 +395,8 @@ app.put("/change-password", auth, async (req, res) => {
   }
 });
 
-app.listen(3001, () => {
-  console.log("Server listening on http://127.0.0.1:3001");
+// Use port from config with fallback to 3001
+const PORT = config.port || 3001;
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });

@@ -2,13 +2,17 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 
-// 🔁 Helper function to find user by role + email
+/**
+ * Find user by email and role
+ */
 const findUserByEmailAndRole = async (email, role) => {
   if (!email || !role) return null;
   return await User.findOne({ email, role });
 };
 
-// ✅ PUT: Save or update faculty info
+/**
+ * Update faculty profile
+ */
 router.put('/info', async (req, res) => {
   const { email, name, department, contact, bio } = req.body;
 
@@ -34,7 +38,9 @@ router.put('/info', async (req, res) => {
   }
 });
 
-// ✅ GET: Fetch all students for faculty dashboard
+/**
+ * Get all students
+ */
 router.get('/students', async (req, res) => {
   try {
     const students = await User.find({ role: "student" })
@@ -48,7 +54,9 @@ router.get('/students', async (req, res) => {
   }
 });
 
-// ✅ PUT: Update student dashboard data
+/**
+ * Update student dashboard data
+ */
 router.put("/update-student", async (req, res) => {
   const {
     email,
@@ -72,7 +80,7 @@ router.put("/update-student", async (req, res) => {
       return res.status(404).json({ message: "Student not found" });
     }
 
-    // ✅ Ensure dashboardData object is well-structured
+    // Normalize dashboard data with defaults
     student.dashboardData = {
       courses: Array.isArray(courses) ? courses : [],
       cgpa: cgpa || "N/A",
@@ -92,7 +100,9 @@ router.put("/update-student", async (req, res) => {
   }
 });
 
-// ✅ GET: Fetch faculty info by email
+/**
+ * Get faculty by email
+ */
 router.get('/info/:email', async (req, res) => {
   const { email } = req.params;
 
@@ -116,7 +126,9 @@ router.get('/info/:email', async (req, res) => {
   }
 });
 
-// ✅ GET: Get student info (for UpdateStudent name fetch)
+/**
+ * Get student name by email
+ */
 router.get('/student-info/:email', async (req, res) => {
   const { email } = req.params;
 

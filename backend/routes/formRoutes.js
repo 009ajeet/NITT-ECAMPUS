@@ -4,7 +4,9 @@ const Form = require("../models/Form");
 const Course = require("../models/Course");
 const { auth, authorize } = require("../middleware/auth");
 
-// Save or update form structure (Only Content Admin)
+/**
+ * Save or update form structure (Content Admin only)
+ */
 router.post("/save-form-structure", auth, authorize(["content_admin"]), async (req, res) => {
   try {
     const { courseId, educationFields, sections, requiredAcademicFields, requiredAcademicSubfields, requiredDocuments, programType } = req.body;
@@ -84,8 +86,9 @@ router.post("/save-form-structure", auth, authorize(["content_admin"]), async (r
   }
 });
 
-// Get form structure (Content Admin or Student)
-// Get form structure (Content Admin or Student)
+/**
+ * Get form structure for a course
+ */
 router.get("/get-form-structure/:courseId", auth, async (req, res) => {
   try {
     const courseId = req.params.courseId;

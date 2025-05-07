@@ -5,7 +5,9 @@ const Notice = require("../models/Notice");
 // Middlewares
 const { auth, authorize } = require("../middleware/auth");
 
-// ✅ GET all notices (Accessible to all authenticated users)
+/**
+ * Get all notices for user by role
+ */
 router.get("/", auth, async (req, res) => {
   try {
     const notices = await Notice.find({
@@ -19,7 +21,9 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
-// ✅ GET a single notice by ID (Accessible to all authenticated users)
+/**
+ * Get single notice by ID
+ */
 router.get("/:id", auth, async (req, res) => {
   try {
     const notice = await Notice.findById(req.params.id);
@@ -28,7 +32,7 @@ router.get("/:id", auth, async (req, res) => {
       return res.status(404).json({ message: "Notice not found" });
     }
 
-    // Optional: Check if the notice is for this role
+    // Check if notice targets this role
     if (!notice.targetRoles.includes(req.user.role)) {
       return res.status(403).json({ message: "Access Denied: You are not authorized to view this notice" });
     }
@@ -40,7 +44,9 @@ router.get("/:id", auth, async (req, res) => {
   }
 });
 
-// ✅ POST create a new notice (Admin Only)
+/**
+ * Create new notice (Admin only)
+ */
 router.post("/", auth, authorize(["admin"]), async (req, res) => {
   try {
     const { title, description, expiresAt, targetRoles } = req.body;
@@ -65,7 +71,9 @@ router.post("/", auth, authorize(["admin"]), async (req, res) => {
   }
 });
 
-// ✅ PUT update a notice (Admin Only)
+/**
+ * Update notice (Admin only)
+ */
 router.put("/:id", auth, authorize(["admin"]), async (req, res) => {
   try {
     const { title, description, expiresAt, targetRoles } = req.body;
@@ -87,7 +95,9 @@ router.put("/:id", auth, authorize(["admin"]), async (req, res) => {
   }
 });
 
-// ✅ DELETE a notice (Admin Only)
+/**
+ * Delete notice (Admin only)
+ */
 router.delete("/:id", auth, authorize(["admin"]), async (req, res) => {
   try {
     const deletedNotice = await Notice.findByIdAndDelete(req.params.id);

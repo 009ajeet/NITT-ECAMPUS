@@ -18,8 +18,7 @@ router.get("/dashboard", async (req, res) => {
       return res.status(404).json({ message: "Student not found" });
     }
 
-    console.log("Found student:", student);//to debug
-
+    console.log("Found student:", student);
     const dashboardData = {
       courses: student.dashboardData.courses || [],
       cgpa: student.dashboardData.cgpa || "N/A",
@@ -30,9 +29,8 @@ router.get("/dashboard", async (req, res) => {
       activity: student.dashboardData.activity || "No activity",
     };
 
-    console.log(`Dashboard data for ${email} fetched successfully.`);//to debug
-    console.log("Sending dashboardData:", dashboardData); //to debug
-
+    console.log(`Dashboard data for ${email} fetched successfully.`);
+    console.log("Sending dashboardData:", dashboardData); 
     res.status(200).json({
       email: student.email,
       name: student.name,

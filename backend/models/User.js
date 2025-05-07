@@ -70,7 +70,6 @@ const UserSchema = new mongoose.Schema({
   }],
 
 
-  // Add this field to User.js schema
 verifiedBy: {
   type: mongoose.Schema.Types.ObjectId,
   ref: "User",
@@ -78,12 +77,7 @@ verifiedBy: {
 },
 
 
-  // Officer assignment field - which officer is assigned to this student
-  // assignedOfficer: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: "User",
-  //   default: null,
-  // },
+  
 }, { timestamps: true });
 
 module.exports = mongoose.model("User", UserSchema);
