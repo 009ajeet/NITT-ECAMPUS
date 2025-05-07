@@ -13,7 +13,7 @@ const FacultyLayout = () => {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
 
-  //to debug
+  
   console.log(localStorage.getItem("token"));
   console.log(localStorage.getItem("userId"));
 

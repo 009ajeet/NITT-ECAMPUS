@@ -30,7 +30,6 @@ const About = () => {
         <div className="slider-container enhanced-slider">
           <img
             src={images[currentIndex]}
-            //alt={Slide ${currentIndex + 1}}
             className="slider-image"
           />
         </div>
